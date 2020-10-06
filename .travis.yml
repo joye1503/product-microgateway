@@ -13,11 +13,11 @@ dist: trusty
 # Only errors and Maven version information will be printed in the CI logs.
 env:
   global:
-    - JAVA_HOME=/usr/lib/jvm/java-8-openjdk-arm64
+    - JAVA_HOME=/usr/lib/jvm/java-8-oracle
 jobs:
   include:
     - stage: test
-      jdk: openjdk8
+      jdk: oraclejdk8
       arch: arm64
       script: 
         - mvn clean install -B -V | grep -e "\[ERROR\]" -e Maven -e "// Start Running" -e "Building"; test ${PIPESTATUS[0]} -eq 0;
