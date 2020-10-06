@@ -13,7 +13,7 @@ dist: trusty
 # Only errors and Maven version information will be printed in the CI logs.
 env:
   global:
-    - JAVA_HOME=/usr/lib/jvm/java-11-openjdk-arm64
+    - JAVA_HOME=/usr/lib/jvm/java-8-openjdk-arm64
 jobs:
   include:
     - stage: test
