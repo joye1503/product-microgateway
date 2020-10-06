@@ -11,17 +11,17 @@ dist: trusty
 
 # Run maven build in quiet mode to avoid log file limit in Travis CI.
 # Only errors and Maven version information will be printed in the CI logs.
-jdk:
-- openjdk8
-install:
-  - if [ "${TRAVIS_CPU_ARCH}" == "arm64" ]; then
-     sudo apt-get install openjdk-8-jdk maven;
-     export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-arm64;
-     export PATH=$JAVA_HOME/bin:$PATH;
-    fi
-    
-script: 
-  - mvn clean install -B -V | grep -e "\[ERROR\]" -e Maven -e "// Start Running" -e "Building"; test ${PIPESTATUS[0]} -eq 0;
+env:
+  global:
+    - JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-arm64/
+
+jobs:
+  include:
+    - stage: test
+      jdk: openjdk8
+      arch: arm64
+      script: 
+        - mvn clean install -B -V | grep -e "\[ERROR\]" -e Maven -e "// Start Running" -e "Building"; test ${PIPESTATUS[0]} -eq 0;
 cache:
   directories:
   - $HOME/.m2
