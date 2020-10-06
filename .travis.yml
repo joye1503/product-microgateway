@@ -1,16 +1,23 @@
+dist: xenial
+arch: 
+    - arm64
+    - amd64
+before_install:    
+    - sudo apt-get -y install maven
+
+
 language: java
 dist: trusty
 # Skip install phase to avoid unwanted mvn build
-install: skip
-arch: 
-    - amd64
-    - arm64
-jdk: openjdk8
-before_install:    
-    - sudo apt-get -y install maven
+
 # Run maven build in quiet mode to avoid log file limit in Travis CI.
 # Only errors and Maven version information will be printed in the CI logs.
-script: mvn clean install -B -V | grep -e "\[ERROR\]" -e Maven -e "// Start Running" -e "Building"; test ${PIPESTATUS[0]} -eq 0;
+jobs:
+  include:
+    - stage: test
+      jdk: oraclejdk8
+      script: 
+        - mvn clean install -B -V | grep -e "\[ERROR\]" -e Maven -e "// Start Running" -e "Building"; test ${PIPESTATUS[0]} -eq 0;
 cache:
   directories:
   - $HOME/.m2
