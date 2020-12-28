@@ -1,10 +1,13 @@
 language: java
 dist: xenial
+
+arch: 
+    - arm64
 # Skip install phase to avoid unwanted mvn build
 before_install:    
     - sudo apt-get -y install maven
     - sudo apt-get -y install openjdk-8-jdk
-    - export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+    - export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-arm64
     
 install: skip
 # Run maven build in quiet mode to avoid log file limit in Travis CI.
